@@ -1,19 +1,23 @@
 // server.js
 const express = require("express");
 const app = express();
+// import cors from 'cors';
+
+// var cors = require('cors');
+// app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+
 
 // Root endpoint
 app.get("/", (req, res) => {
   res.send("Timestamp Microservice is running 🚀");
 });
 
+app.use(express.static('public'));
+
 // Without date param -> return current time
 app.get("/api", (req, res) => {
   let date = new Date();
-  res.json({
-    unix: date.getTime(),
-    utc: date.toUTCString(),
-  });
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 // With date param
